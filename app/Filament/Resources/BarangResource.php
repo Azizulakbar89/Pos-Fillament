@@ -2,16 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BarangResource\Pages;
-use App\Filament\Resources\BarangResource\RelationManagers;
-use App\Models\Barang;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Barang;
+use Filament\Forms\Form;
+use App\Models\Pembelian;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use App\Filament\Resources\BarangResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BarangResource\RelationManagers;
 
 class BarangResource extends Resource
 {
@@ -23,12 +31,13 @@ class BarangResource extends Resource
 
     public static function form(Form $form): Form
     {
+        Pembelian::class;
         return $form
             ->schema([
-                Forms\Components\TextInput::make('kode')->required(),
-                Forms\Components\TextInput::make('nama')->label('Nama Barang'),
-                Forms\Components\TextInput::make('stok')->disabledOn('edit')->label('Stok Awal')->type('number'),
-                Forms\Components\Select::make('satuan')->options([
+                TextInput::make('kode')->required(),
+                TextInput::make('nama')->label('Nama Barang'),
+                TextInput::make('stok')->disabledOn('edit')->label('Stok Awal')->type('number'),
+                Select::make('satuan')->options([
                     'kg' => 'Kg',
                     'liter' => 'Liter',
                 ]),
@@ -39,22 +48,22 @@ class BarangResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kode')->searchable(),
-                Tables\Columns\TextColumn::make('nama')->searchable(),
-                Tables\Columns\TextColumn::make('stok'),
-                Tables\Columns\TextColumn::make('satuan'),
+                TextColumn::make('kode')->searchable(),
+                TextColumn::make('nama')->searchable(),
+                TextColumn::make('stok'),
+                TextColumn::make('satuan'),
 
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
