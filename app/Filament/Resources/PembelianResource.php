@@ -15,6 +15,7 @@ use App\Filament\Resources\PembelianResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PembelianResource\RelationManagers;
 use App\Models\Supplier;
+use Filament\Forms\Components\DatePicker;
 
 class PembelianResource extends Resource
 {
@@ -26,6 +27,10 @@ class PembelianResource extends Resource
     {
         return $form
             ->schema([
+                DatePicker::make('tanggal')
+                    ->label('Tanggal Pembelian')
+                    ->required()
+                    ->default(now())->columnSpanFull(),
                 Forms\Components\Select::make('supplier_id')
                     ->options(
                         \App\Models\Supplier::pluck('namaper', 'id')
@@ -72,6 +77,7 @@ class PembelianResource extends Resource
     {
         return [
             'index' => Pages\ListPembelians::route('/'),
+            // 'create' => Pages\CreatePembelian::route('/create'),
             'create' => Pages\CreatePembelian::route('/create'),
             'edit' => Pages\EditPembelian::route('/{record}/edit'),
         ];

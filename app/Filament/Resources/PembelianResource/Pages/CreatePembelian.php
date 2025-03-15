@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePembelian extends CreateRecord
 {
     protected static string $resource = PembelianResource::class;
+
+    protected function getFormActions(): array
+    {
+        return [
+            $this->getCreateFormAction(),
+        ];
+    }
 }
