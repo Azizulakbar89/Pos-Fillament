@@ -36,6 +36,7 @@ class BarangResource extends Resource
             ->schema([
                 TextInput::make('kode')->required(),
                 TextInput::make('nama')->label('Nama Barang'),
+                TextInput::make('harga')->label('Harga Barang')->type('number'),
                 TextInput::make('stok')->disabledOn('edit')->label('Stok Awal')->type('number'),
                 Select::make('satuan')->options([
                     'kg' => 'Kg',
@@ -51,6 +52,7 @@ class BarangResource extends Resource
                 TextColumn::make('kode')->searchable(),
                 TextColumn::make('nama')->searchable(),
                 TextColumn::make('stok'),
+                TextColumn::make('harga'),
                 TextColumn::make('satuan'),
 
             ])
