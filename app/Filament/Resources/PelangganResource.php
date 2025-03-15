@@ -37,7 +37,7 @@ class PelangganResource extends Resource
         return $table
             ->columns([
                 // untuk menampilkan data nya
-                Tables\Columns\TextColumn::make('nama'),
+                Tables\Columns\TextColumn::make('nama')->searchable(),
                 Tables\Columns\TextColumn::make('no_hp')->label('Nomor HP'),
                 Tables\Columns\TextColumn::make('alamat'),
             ])
