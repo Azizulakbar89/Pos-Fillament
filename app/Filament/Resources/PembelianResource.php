@@ -5,17 +5,19 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Set;
+use App\Models\Supplier;
 use Filament\Forms\Form;
 use App\Models\Pembelian;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Grid;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PembelianResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PembelianResource\RelationManagers;
-use App\Models\Supplier;
-use Filament\Forms\Components\DatePicker;
 
 class PembelianResource extends Resource
 {
@@ -51,7 +53,9 @@ class PembelianResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('supplier.namaper')->label('Nama Supplier'),
+                TextColumn::make('supplier.nama')->label('Nama Sales'),
+                TextColumn::make('tanggal')->dateTime('d F Y')->label('Tanggal Pembelian')
             ])
             ->filters([
                 //
